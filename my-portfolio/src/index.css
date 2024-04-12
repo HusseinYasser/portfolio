@@ -2,3 +2,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+/* Custom scrollbar styles */
+/* Track */
+::-webkit-scrollbar {
+    width: 5px; /* Set the width of the scrollbar */
+    
+  }
+  
+  /* Thumb */
+  ::-webkit-scrollbar-thumb {
+    background-color: gray; /* Set the color of the scrollbar thumb */
+    border-radius: 6px; /* Set the border radius of the scrollbar thumb */
+    width: 10px;;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: black; /* Set the background color of the scrollbar track */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    width: 10px; /* Increase the width of the scrollbar thumb on hover */
+  }
+  
