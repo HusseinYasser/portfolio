@@ -1,4 +1,8 @@
 import MyImg from "../assets/Hussein.jpg";
+import { FaLinkedin } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
+
+
 
 const Header = () => {
   return (
@@ -11,9 +15,15 @@ const Header = () => {
         <div className="font-pixelfy text-white text-2xl">
           Software Engineer
         </div> 
-
+        <div className = "flex space-x-3 text-white text-lg">
+          <a href = "https://www.linkedin.com/in/hussein-ebrahim-044613206/">
+            <FaLinkedin className="cursor-pointer" /> 
+          </a>
+          <a href = "https://github.com/HusseinYasser">
+            <FaGithub className="cursor-pointer" />
+          </a>
+        </div>
       </div>
-     
     </div>
   );
 };
