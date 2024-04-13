@@ -1,6 +1,10 @@
 
 import Node from './Node.js';
 
+const isValid = (idx) => {
+    return idx >= 0 && idx < 28;
+}
+
 class Trie
 {
     constructor()
@@ -29,7 +33,7 @@ class Trie
         let ans = '';
         for(let i = 0; i < command.length; ++i)
         {
-            if(currNode.children[command[i].charCodeAt(0) - 95] == 'null')
+            if(!isValid(command[i].charCodeAt(0) - 95) || currNode.children[command[i].charCodeAt(0) - 95] == 'null')
             {
                 return '';
             }
