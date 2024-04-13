@@ -10,6 +10,10 @@ const Terminal = () => {
 
     const [prevOutputs, setPrevOutputs] = useState([]);
 
+    const [archivedCommands, setArchivedCommands] = useState([]);
+
+    const [commandIdx, setCommandIdx] = useState(0);
+
     const scrollableRef = useRef(null);
 
     const inputRef = useRef(null);
@@ -21,15 +25,38 @@ const Terminal = () => {
         }
     )
 
+    useEffect(
+        () => {
+            setCommandIdx(archivedCommands.length);
+            console.log(archivedCommands);
+        }, [archivedCommands]
+    );
+
+    useEffect(
+        () => setCommand(commandIdx >= archivedCommands.length ? '' : archivedCommands[commandIdx]),
+        [archivedCommands, commandIdx]
+    );
+
+    const moveForward = () => {
+        setCommandIdx(Math.min(commandIdx+1, archivedCommands.length));
+    }
+
+    const movebackward = () => 
+    {
+        setCommandIdx(Math.max(commandIdx-1, 0));
+    }
+
     const executeCommand = () =>
     {
         setPrevCommands([...prevCommands, command]);
+        setArchivedCommands([...archivedCommands, command]);
         setPrevOutputs([...prevOutputs, commands[command] ?? `command '${command}' not found`]);
         if(command.trim().toLowerCase() == "clear"){
             setPrevCommands([]);
             setPrevOutputs([]);
         }
         setCommand('');
+        
     }
     
 
@@ -78,6 +105,12 @@ const Terminal = () => {
                         onKeyDown={(event)=>{
                             if(event.key === "Enter")
                                 executeCommand();
+                            else if(event.key === 'ArrowUp'){
+                                event.preventDefault();
+                                movebackward();
+                            }
+                            else if(event.key === 'ArrowDown')
+                                moveForward();
                         }}
                         ref = {inputRef} />
                     </div>
