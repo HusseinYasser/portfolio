@@ -2,8 +2,6 @@ import MyImg from "../assets/Hussein.jpg";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 
-
-
 const Header = () => {
   return (
     <div className="ml-20 flex space-x-5 items-center">

@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 
+import commands from "../public/commands";
+
 const Terminal = () => {
 
     const [command, setCommand] = useState('');
@@ -22,7 +24,11 @@ const Terminal = () => {
     const executeCommand = () =>
     {
         setPrevCommands([...prevCommands, command]);
-        setPrevOutputs([...prevOutputs, 'Command not found']);
+        setPrevOutputs([...prevOutputs, commands[command] ?? `command '${command}' not found`]);
+        if(command.trim().toLowerCase() == "clear"){
+            setPrevCommands([]);
+            setPrevOutputs([]);
+        }
         setCommand('');
     }
     
