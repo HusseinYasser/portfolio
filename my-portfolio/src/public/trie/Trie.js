@@ -63,8 +63,8 @@ commandsTrie.addCommand("email");
 commandsTrie.addCommand("skills");
 commandsTrie.addCommand("experience");
 commandsTrie.addCommand("resume");
-commandsTrie.addCommand("transcript_of_records");
+commandsTrie.addCommand("transcript of records");
 commandsTrie.addCommand("publications");
-commandsTrie.addCommand("favourite_series");
+commandsTrie.addCommand("favourite series");
 
 export default commandsTrie;
