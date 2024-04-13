@@ -6,9 +6,13 @@ const commands = {
         <div>education: my education history</div>
         <div>experience: my previous experiences</div>
         <div>projects: what i worked on</div>
+        <div>resume: my cv</div>
+        <div>transcript_of_records: my records and grades</div>
+        <div>publications: my published research papers</div>
         <div>awards: achievments</div>
         <div>skills</div>
         <div>languages</div>
+        <div>favourite_series</div>
         <div>help: list of commands you can use</div>
     </>),
     "clear": <></>,
@@ -74,7 +78,56 @@ const commands = {
     "skills":
     <>java, cpp, python, docker, javascript, prolog, haskell, git, node, react</>,
     "languages":
-    <>english C1, german A2</>
+    <>english C1, german A2</>,
+    "transcript_of_records": 
+    <>
+        <span> follow this link </span>
+        <a href="https://drive.google.com/file/d/1BOW5YpAWai_SAhVrbgnr00XFUi09FLAQ/view?usp=sharing"
+           className="text-blue-300 underline">
+            Transcript
+        </a>
+    </>,
+    "favourite_series": <>
+        Succession
+    </>,
+    "resume": 
+    <>
+        <span> follow this link </span>
+        <a href="https://drive.google.com/file/d/1ZSYS_VDafe6brcnsQwKTU_GbkF6zKW88/view?usp=sharing"
+           className="text-blue-300 underline">
+            Resume
+        </a>
+    </>,
+    "publications":
+    <>
+        <div className="flex-col">
+            <div className="text-orange-500">
+                On the Road to Clarity: Exploring Expplaianable AI for World Models in a Driver Assistance System
+            </div>
+            <div>
+                <span>Conference: </span>
+                <a href="https://ieeecai.org/2024/" className="text-blue-300 underline">Conference: IEEE Conference on Artificial Intelligence (IEEE CAI) 2024</a>
+            </div>
+            <div>
+                Accpeted: March 2024
+            </div>
+            <div>
+                To Be Published: June 2024
+            </div>
+            <div>
+                Contributions: 
+                <ul className="ml-3">
+                    <li> - Contributed in enhancing the explainability of world models used in predicting pedestrian behavior detection within a
+                    driver assistance system.</li>
+                    <li> - Applied Layer-wise Relevance Propagation (LRP) technique to interpret the LSTM model’s predictions for the next time
+                    frame.</li>
+                    <li> - Integrated LRP explanation of the LSTM with perturbation analysis on Variational Autoencoder (VAE) to generate compre-
+                    hensive heat map explanations for perception predictions.</li>
+                </ul>
+            </div>
+        </div>
+    </>
+
 }
 
 export default commands;
