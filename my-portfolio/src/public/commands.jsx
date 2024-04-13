@@ -7,12 +7,12 @@ const commands = {
         <div>experience: my previous experiences</div>
         <div>projects: what i worked on</div>
         <div>resume: my cv</div>
-        <div>transcript_of_records: my records and grades</div>
+        <div>transcript of records: my records and grades</div>
         <div>publications: my published research papers</div>
         <div>awards: achievments</div>
         <div>skills</div>
         <div>languages</div>
-        <div>favourite_series</div>
+        <div>favourite series</div>
         <div>help: list of commands you can use</div>
     </>),
     "clear": <></>,
@@ -79,7 +79,7 @@ const commands = {
     <>java, cpp, python, docker, javascript, prolog, haskell, git, node, react</>,
     "languages":
     <>english C1, german A2</>,
-    "transcript_of_records": 
+    "transcript of records": 
     <>
         <span> follow this link </span>
         <a href="https://drive.google.com/file/d/1BOW5YpAWai_SAhVrbgnr00XFUi09FLAQ/view?usp=sharing"
@@ -87,7 +87,7 @@ const commands = {
             Transcript
         </a>
     </>,
-    "favourite_series": <>
+    "favourite series": <>
         Succession
     </>,
     "resume": 
