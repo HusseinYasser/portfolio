@@ -16,7 +16,7 @@ const Terminal = () => {
 
     const [commandIdx, setCommandIdx] = useState(0);
 
-    const [suggestion, setSuggestion] = useState('');
+    const [suggestion, setSuggestion] = useState('help');
 
     const scrollableRef = useRef(null);
 
@@ -32,24 +32,25 @@ const Terminal = () => {
     useEffect(
         () => {
             setCommandIdx(archivedCommands.length);
-            console.log(archivedCommands);
         }, [archivedCommands]
     );
 
     useEffect(
-        () => setCommand(commandIdx >= archivedCommands.length ? '' : archivedCommands[commandIdx]),
+        () => {
+            let nwCommand = commandIdx >= archivedCommands.length ? '' : archivedCommands[commandIdx];
+            setCommand(nwCommand);
+            setSuggestion(commandsTrie.autoComplete(nwCommand));
+        },
         [archivedCommands, commandIdx]
     );
 
     const moveForward = () => {
         setCommandIdx(Math.min(commandIdx+1, archivedCommands.length));
-        updateCursor();
     }
 
     const movebackward = () => 
     {
         setCommandIdx(Math.max(commandIdx-1, 0));
-        updateCursor();
     }
 
     const executeCommand = () =>
@@ -62,8 +63,6 @@ const Terminal = () => {
             setPrevCommands([]);
             setPrevOutputs([]);
         }
-        setCommand('');
-        setSuggestion('');
     }
 
     const updateCursor = () => {
@@ -112,12 +111,14 @@ const Terminal = () => {
 
                 {/* Terminal Writing Command */}
                 <div className="flex-col mt-2">
-                    <div className="text-blue-500 ml-auto text-md w-full flex flex-wrap relative">
+                    <div className="text-blue-500 ml-auto text-md w-full flex flex-wrap relative"
+                        onClick={() => inputRef.current.focus()}>
                         <span className="text-green-500">visitor</span>@hussein-ebrahimPortfolio:<span className="text-lg">~$</span>
                         <div className="input-container flex flex-grow">
                             <div
                                 className="text-white ml-2 outline-none bg-black !p-0 !bg-none !border-none !resize-none"
                                 contentEditable = "true"
+                                spellCheck="false"
                                 ref={inputRef}
                                 onInput={(event) => {
                                     setCommand(event.target.textContent);
@@ -140,10 +141,8 @@ const Terminal = () => {
                                         inputRef.current.textContent = (command + suggestion);
                                         setCommand(command + suggestion);
                                         setSuggestion("");
-                                        updateCursor();
-
-                                        
                                     }
+                                    updateCursor();
                                 }}
                             >
                                 {command}

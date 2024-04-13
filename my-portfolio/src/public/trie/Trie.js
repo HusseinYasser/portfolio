@@ -24,7 +24,7 @@ class Trie
     autoComplete(command)
     {
         if(command == '')
-            return '';
+            return 'help';
         let currNode = this.root;
         let ans = '';
         for(let i = 0; i < command.length; ++i)
