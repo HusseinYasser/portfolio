@@ -62,8 +62,9 @@ commandsTrie.addCommand("languages");
 commandsTrie.addCommand("email");
 commandsTrie.addCommand("skills");
 commandsTrie.addCommand("experience");
-
-console.log(commandsTrie.autoComplete("ed"));
-
+commandsTrie.addCommand("resume");
+commandsTrie.addCommand("transcript_of_records");
+commandsTrie.addCommand("publications");
+commandsTrie.addCommand("favourite_series");
 
 export default commandsTrie;
