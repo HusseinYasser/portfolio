@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from "react";
 
 import commands from "../public/commands";
 
+import commandsTrie from "../public/trie/Trie";
+
 const Terminal = () => {
 
     const [command, setCommand] = useState('');
@@ -13,6 +15,8 @@ const Terminal = () => {
     const [archivedCommands, setArchivedCommands] = useState([]);
 
     const [commandIdx, setCommandIdx] = useState(0);
+
+    const [suggestion, setSuggestion] = useState('');
 
     const scrollableRef = useRef(null);
 
@@ -48,6 +52,7 @@ const Terminal = () => {
 
     const executeCommand = () =>
     {
+        console.log(command);
         setPrevCommands([...prevCommands, command]);
         setArchivedCommands([...archivedCommands, command]);
         setPrevOutputs([...prevOutputs, commands[command] ?? `command '${command}' not found`]);
@@ -56,7 +61,6 @@ const Terminal = () => {
             setPrevOutputs([]);
         }
         setCommand('');
-        
     }
     
 
@@ -95,26 +99,49 @@ const Terminal = () => {
 
                 {/* Terminal Writing Command */}
                 <div className="flex-col mt-2">
-                    <div className="text-blue-500 ml-auto text-md w-full flex flex-wrap">
+                    <div className="text-blue-500 ml-auto text-md w-full flex flex-wrap relative">
                         <span className="text-green-500">visitor</span>@hussein-ebrahimPortfolio:<span className="text-lg">~$</span>
-                        <input className="bg-black text-white border-none focus:outline-none pl-2 flex-grow" 
-                        spellCheck="false"
-                        value = {command}
-                        onChange={(event) => setCommand(event.target.value)}
-                        placeholder="help"
-                        onKeyDown={(event)=>{
-                            if(event.key === "Enter")
-                                executeCommand();
-                            else if(event.key === 'ArrowUp'){
-                                event.preventDefault();
-                                movebackward();
-                            }
-                            else if(event.key === 'ArrowDown')
-                                moveForward();
-                        }}
-                        ref = {inputRef} />
+                        <div className="input-container flex flex-grow">
+                            <div
+                                className="text-white ml-2 outline-none bg-black !p-0 !bg-none !border-none !resize-none"
+                                contentEditable = "true"
+                                ref={inputRef}
+                                onInput={(event) => {
+                                    setCommand(event.target.textContent);
+                                    setSuggestion(commandsTrie.autoComplete(event.target.textContent));
+                                }}
+                                onClick={() => inputRef.current.focus()}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter") {
+                                        event.preventDefault();
+                                        inputRef.current.textContent = '';
+                                        executeCommand();
+                                    }
+                                    else if (event.key === "ArrowUp") {
+                                        event.preventDefault();
+                                        movebackward();
+                                    } else if (event.key === "ArrowDown") moveForward();
+                                    else if (event.key === "Tab") {
+                                        event.preventDefault();
+                                        inputRef.current.textContent = (command + suggestion);
+                                        setCommand(command + suggestion);
+                                        setSuggestion("");
+
+                                        // Set the cursor position to the end of the text
+                                        const range = document.createRange();
+                                        const selection = window.getSelection();
+                                        range.selectNodeContents(inputRef.current);
+                                        range.collapse(false);
+                                        selection.removeAllRanges();
+                                        selection.addRange(range);
+                                    }
+                                }}
+                            />
+                            {suggestion && <span className="text-gray-500 ">{suggestion}</span>}
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

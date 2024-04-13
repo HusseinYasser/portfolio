@@ -23,6 +23,8 @@ class Trie
 
     autoComplete(command)
     {
+        if(command == '')
+            return '';
         let currNode = this.root;
         let ans = '';
         for(let i = 0; i < command.length; ++i)
