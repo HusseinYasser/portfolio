@@ -43,11 +43,13 @@ const Terminal = () => {
 
     const moveForward = () => {
         setCommandIdx(Math.min(commandIdx+1, archivedCommands.length));
+        updateCursor();
     }
 
     const movebackward = () => 
     {
         setCommandIdx(Math.max(commandIdx-1, 0));
+        updateCursor();
     }
 
     const executeCommand = () =>
@@ -61,6 +63,17 @@ const Terminal = () => {
             setPrevOutputs([]);
         }
         setCommand('');
+        setSuggestion('');
+    }
+
+    const updateCursor = () => {
+        // Set the cursor position to the end of the text
+        const range = document.createRange();
+        const selection = window.getSelection();
+        range.selectNodeContents(inputRef.current);
+        range.collapse(false);
+        selection.removeAllRanges();
+        selection.addRange(range);
     }
     
 
@@ -109,6 +122,7 @@ const Terminal = () => {
                                 onInput={(event) => {
                                     setCommand(event.target.textContent);
                                     setSuggestion(commandsTrie.autoComplete(event.target.textContent));
+                                    updateCursor();
                                 }}
                                 onClick={() => inputRef.current.focus()}
                                 onKeyDown={(event) => {
@@ -126,22 +140,18 @@ const Terminal = () => {
                                         inputRef.current.textContent = (command + suggestion);
                                         setCommand(command + suggestion);
                                         setSuggestion("");
+                                        updateCursor();
 
-                                        // Set the cursor position to the end of the text
-                                        const range = document.createRange();
-                                        const selection = window.getSelection();
-                                        range.selectNodeContents(inputRef.current);
-                                        range.collapse(false);
-                                        selection.removeAllRanges();
-                                        selection.addRange(range);
+                                        
                                     }
                                 }}
-                            />
+                            >
+                                {command}
+                            </div>
                             {suggestion && <span className="text-gray-500 ">{suggestion}</span>}
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
